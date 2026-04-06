@@ -4,13 +4,11 @@ import { buildWhatsAppLink } from "@/lib/utils";
 interface StoreFooterProps {
   storeName: string;
   whatsappNumber: string | null;
-  exchangeRate: number;
 }
 
 export function StoreFooter({
   storeName,
   whatsappNumber,
-  exchangeRate,
 }: StoreFooterProps) {
   return (
     <footer className="bg-brand-navy mt-auto">
@@ -18,7 +16,7 @@ export function StoreFooter({
       <div className="h-0.5 bg-brand-gold/40" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-3">
@@ -66,19 +64,6 @@ export function StoreFooter({
                 </a>
               </li>
             </ul>
-          </div>
-
-          {/* Exchange rate */}
-          <div>
-            <h3 className="font-heading font-semibold text-brand-gold text-sm mb-3 uppercase tracking-wide">
-              Cotización
-            </h3>
-            <p className="text-sm text-white/60">
-              Precios en pesos al tipo de cambio del día:
-            </p>
-            <p className="text-lg font-bold text-text-inverse mt-1">
-              USD 1 = ${exchangeRate.toLocaleString("es-AR")}
-            </p>
           </div>
         </div>
 

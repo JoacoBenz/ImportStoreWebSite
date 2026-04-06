@@ -5,7 +5,6 @@ import { StoreHeader } from "@/components/store/store-header";
 import { CategoryFilter } from "@/components/store/category-filter";
 import { ProductGrid } from "@/components/store/product-grid";
 import { ProductCardSkeleton } from "@/components/ui/skeleton";
-import { formatARS } from "@/lib/utils";
 import type { Product, Category, Config } from "@/types";
 
 export default function StorePage() {
@@ -49,8 +48,6 @@ export default function StorePage() {
     }
   }, [activeCategory, searchQuery, fetchProducts, loading]);
 
-  const exchangeRate = config?.exchange_rate || 1200;
-  const profitMargin = config?.profit_margin || 1;
   const whatsappNumber = config?.whatsapp_number || "";
   const storeName = config?.store_name || "Import Store Argentina";
 
@@ -69,11 +66,6 @@ export default function StorePage() {
               Auriculares, cargadores, cables, fundas y más. Precios
               actualizados al día.
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
-              <span className="text-brand-gold text-sm font-medium">
-                Cotización: USD 1 = {formatARS(exchangeRate)}
-              </span>
-            </div>
           </div>
         </section>
 
@@ -101,8 +93,6 @@ export default function StorePage() {
           ) : (
             <ProductGrid
               products={products}
-              exchangeRate={exchangeRate}
-              profitMargin={profitMargin}
               whatsappNumber={whatsappNumber}
             />
           )}

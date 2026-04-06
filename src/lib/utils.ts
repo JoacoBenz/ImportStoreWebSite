@@ -1,25 +1,8 @@
-export function formatARS(amount: number): string {
-  return new Intl.NumberFormat("es-AR", {
-    style: "currency",
-    currency: "ARS",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
-
 export function formatUSD(amount: number): string {
   return `USD ${amount.toLocaleString("en-US", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })}`;
-}
-
-export function calculateARS(
-  priceUSD: number,
-  exchangeRate: number,
-  profitMargin: number
-): number {
-  return priceUSD * exchangeRate * profitMargin;
 }
 
 export function slugify(text: string): string {

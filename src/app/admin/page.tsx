@@ -6,9 +6,8 @@ export const dynamic = "force-dynamic";
 export default async function AdminDashboard() {
   const admin = createAdminClient();
 
-  const [productsRes, configRes, historyRes] = await Promise.all([
+  const [productsRes, historyRes] = await Promise.all([
     admin.from("products").select("id, is_active, stock", { count: "exact" }),
-    admin.from("config").select("*").eq("id", 1).single(),
     admin
       .from("stock_history")
       .select("*")
@@ -17,7 +16,6 @@ export default async function AdminDashboard() {
   ]);
 
   const products = productsRes.data || [];
-  const config = configRes.data;
   const history = historyRes.data || [];
 
   const activeProducts = products.filter((p) => p.is_active).length;
@@ -30,11 +28,6 @@ export default async function AdminDashboard() {
       label: "Productos activos",
       value: activeProducts,
       color: "border-brand-teal",
-    },
-    {
-      label: "Cotización USD",
-      value: `$${config?.exchange_rate?.toLocaleString("es-AR") || "—"}`,
-      color: "border-brand-coral",
     },
     {
       label: "Unidades en stock",
@@ -55,7 +48,7 @@ export default async function AdminDashboard() {
       </h1>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         {stats.map((stat) => (
           <div
             key={stat.label}

@@ -1,9 +1,8 @@
 export const dynamic = "force-dynamic";
 
 import { createAdminClient } from "@/lib/supabase/admin";
-import { formatUSD, formatARS, calculateARS, buildWhatsAppLink } from "@/lib/utils";
+import { formatUSD, buildWhatsAppLink } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { StoreHeader } from "@/components/store/store-header";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -82,11 +81,7 @@ export default async function ProductoPage({ params }: PageProps) {
     );
   }
 
-  const exchangeRate = config?.exchange_rate || 1200;
-  const profitMargin = config?.profit_margin || 1;
   const whatsappNumber = config?.whatsapp_number || "";
-  const storeName = config?.store_name || "Import Store Argentina";
-  const priceARS = calculateARS(product.price_usd, exchangeRate, profitMargin);
 
   return (
     <>
@@ -152,21 +147,11 @@ export default async function ProductoPage({ params }: PageProps) {
                 </p>
               )}
 
-              {/* Prices */}
+              {/* Price */}
               <div className="bg-surface-secondary rounded-2xl p-5 mb-6">
-                <p className="font-heading font-bold text-3xl text-brand-navy mb-1">
+                <p className="font-heading font-bold text-3xl text-brand-navy">
                   {formatUSD(product.price_usd)}
                 </p>
-                <p className="text-lg text-text-secondary">
-                  {formatARS(priceARS)}
-                </p>
-                <div className="mt-3 pt-3 border-t border-brand-ice/50">
-                  <p className="text-xs text-text-muted">
-                    Cotización: USD 1 = ${exchangeRate.toLocaleString("es-AR")}
-                    {profitMargin > 1 &&
-                      ` · Margen: ${((profitMargin - 1) * 100).toFixed(0)}%`}
-                  </p>
-                </div>
               </div>
 
               {/* Stock */}

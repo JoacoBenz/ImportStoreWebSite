@@ -21,8 +21,6 @@ export interface ParsedProduct {
 
 export interface Config {
   id: number;
-  exchange_rate: number;
-  profit_margin: number;
   whatsapp_number: string | null;
   store_name: string;
   updated_at: string;

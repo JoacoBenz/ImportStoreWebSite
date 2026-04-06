@@ -13,19 +13,6 @@ export async function getConfig(): Promise<Config> {
   return data as Config;
 }
 
-export async function updateExchangeRate(newRate: number): Promise<Config> {
-  const supabase = createAdminClient();
-  const { data, error } = await supabase
-    .from("config")
-    .update({ exchange_rate: newRate })
-    .eq("id", 1)
-    .select()
-    .single();
-
-  if (error) throw new Error(`Error al actualizar tipo de cambio: ${error.message}`);
-  return data as Config;
-}
-
 export async function updateConfig(
   updates: Partial<Omit<Config, "id" | "updated_at">>
 ): Promise<Config> {

@@ -1,26 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { formatUSD, formatARS, calculateARS, buildWhatsAppLink } from "@/lib/utils";
+import { formatUSD, buildWhatsAppLink } from "@/lib/utils";
 import type { Product } from "@/types";
 
 interface ProductCardProps {
   product: Product;
-  exchangeRate: number;
-  profitMargin: number;
   whatsappNumber: string;
   index: number;
 }
 
 export function ProductCard({
   product,
-  exchangeRate,
-  profitMargin,
   whatsappNumber,
   index,
 }: ProductCardProps) {
-  const priceARS = calculateARS(product.price_usd, exchangeRate, profitMargin);
-
   return (
     <div
       className="group bg-surface-primary rounded-2xl border border-brand-ice overflow-hidden hover:shadow-[0_4px_24px_rgba(0,100,124,0.1)] hover:scale-[1.02] transition-all duration-300"
@@ -88,9 +82,6 @@ export function ProductCard({
         <div className="mb-3">
           <p className="font-heading font-bold text-brand-navy text-lg">
             {formatUSD(product.price_usd)}
-          </p>
-          <p className="text-sm text-text-secondary">
-            {formatARS(priceARS)}
           </p>
         </div>
 

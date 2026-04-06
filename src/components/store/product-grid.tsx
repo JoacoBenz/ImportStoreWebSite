@@ -4,15 +4,11 @@ import type { Product } from "@/types";
 
 interface ProductGridProps {
   products: Product[];
-  exchangeRate: number;
-  profitMargin: number;
   whatsappNumber: string;
 }
 
 export function ProductGrid({
   products,
-  exchangeRate,
-  profitMargin,
   whatsappNumber,
 }: ProductGridProps) {
   if (products.length === 0) {
@@ -35,8 +31,6 @@ export function ProductGrid({
         <ProductCard
           key={product.id}
           product={product}
-          exchangeRate={exchangeRate}
-          profitMargin={profitMargin}
           whatsappNumber={whatsappNumber}
           index={index}
         />

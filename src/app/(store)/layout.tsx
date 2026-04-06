@@ -27,7 +27,6 @@ export default async function StoreLayout({
   const config = await getConfig();
   const storeName = config?.store_name || "Import Store Argentina";
   const whatsappNumber = config?.whatsapp_number || "";
-  const exchangeRate = config?.exchange_rate || 1200;
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -35,7 +34,6 @@ export default async function StoreLayout({
       <StoreFooter
         storeName={storeName}
         whatsappNumber={whatsappNumber}
-        exchangeRate={exchangeRate}
       />
       {whatsappNumber && <WhatsAppFab phoneNumber={whatsappNumber} />}
     </div>
