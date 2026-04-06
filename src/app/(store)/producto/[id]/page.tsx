@@ -124,11 +124,6 @@ export default async function ProductoPage({ params }: PageProps) {
                 </div>
               )}
 
-              {product.stock <= 3 && product.stock > 0 && (
-                <div className="absolute top-4 left-4">
-                  <Badge variant="danger">Últimas unidades</Badge>
-                </div>
-              )}
             </div>
 
             {/* Details */}
@@ -152,26 +147,6 @@ export default async function ProductoPage({ params }: PageProps) {
                 <p className="font-heading font-bold text-3xl text-brand-navy">
                   {formatUSD(product.price_usd)}
                 </p>
-              </div>
-
-              {/* Stock */}
-              <div className="flex items-center gap-2 mb-6">
-                <div
-                  className={`w-2 h-2 rounded-full ${
-                    product.stock > 3
-                      ? "bg-brand-teal"
-                      : product.stock > 0
-                      ? "bg-brand-coral"
-                      : "bg-text-muted"
-                  }`}
-                />
-                <span className="text-sm text-text-secondary">
-                  {product.stock > 3
-                    ? `${product.stock} disponibles`
-                    : product.stock > 0
-                    ? `Últimas ${product.stock} unidades`
-                    : "Sin stock"}
-                </span>
               </div>
 
               {/* WhatsApp CTA */}

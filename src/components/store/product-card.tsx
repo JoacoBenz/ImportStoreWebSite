@@ -55,14 +55,7 @@ export function ProductCard({
             </div>
           )}
 
-          {/* Badges */}
-          <div className="absolute top-2 left-2 flex flex-col gap-1">
-            {product.stock <= 3 && product.stock > 0 && (
-              <Badge variant="danger" className="text-[10px]">
-                Últimas unidades
-              </Badge>
-            )}
-          </div>
+          {/* Category badge */}
           <div className="absolute top-2 right-2">
             <Badge variant="default" className="text-[10px]">
               {product.category}
@@ -83,26 +76,6 @@ export function ProductCard({
           <p className="font-heading font-bold text-brand-navy text-lg">
             {formatUSD(product.price_usd)}
           </p>
-        </div>
-
-        {/* Stock indicator */}
-        <div className="flex items-center gap-1.5 mb-3">
-          <div
-            className={`w-1.5 h-1.5 rounded-full ${
-              product.stock > 3
-                ? "bg-brand-teal"
-                : product.stock > 0
-                ? "bg-brand-coral"
-                : "bg-text-muted"
-            }`}
-          />
-          <span className="text-xs text-text-muted">
-            {product.stock > 3
-              ? "En stock"
-              : product.stock > 0
-              ? `Quedan ${product.stock}`
-              : "Sin stock"}
-          </span>
         </div>
 
         {/* WhatsApp button */}
