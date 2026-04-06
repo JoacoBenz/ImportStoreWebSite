@@ -5,6 +5,7 @@ import { StoreHeader } from "@/components/store/store-header";
 import { CategoryFilter } from "@/components/store/category-filter";
 import { ProductGrid } from "@/components/store/product-grid";
 import { ProductCardSkeleton } from "@/components/ui/skeleton";
+import { Testimonials } from "@/components/store/testimonials";
 import type { Product, Category, Config } from "@/types";
 
 export default function StorePage() {
@@ -97,6 +98,9 @@ export default function StorePage() {
             />
           )}
         </section>
+
+        {/* Testimonials */}
+        <Testimonials />
       </main>
     </>
   );
