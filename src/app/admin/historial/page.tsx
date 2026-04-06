@@ -1,17 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Spinner } from "@/components/ui/spinner";
 import { EmptyState } from "@/components/ui/empty-state";
+import { useToast } from "@/components/ui/toast";
 import type { StockHistory } from "@/types";
 
 export default function HistorialPage() {
   const [history, setHistory] = useState<StockHistory[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [revertingId, setRevertingId] = useState<string | null>(null);
+  const { toast } = useToast();
 
-  useEffect(() => {
+  function fetchHistory() {
     fetch("/api/stock/history")
       .then((res) => res.json())
       .then((data) => {
@@ -19,7 +23,47 @@ export default function HistorialPage() {
         setLoading(false);
       })
       .catch(() => setLoading(false));
+  }
+
+  useEffect(() => {
+    fetchHistory();
   }, []);
+
+  async function handleRevert(entry: StockHistory) {
+    if (
+      !confirm(
+        `¿Revertir esta carga?\n\nSe van a restar ${entry.parsed_products.length} productos del stock. Los productos que se crearon en esta carga y quedaron en 0 se eliminan.`
+      )
+    )
+      return;
+
+    setRevertingId(entry.id);
+    try {
+      const res = await fetch("/api/stock/revert", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ history_id: entry.id }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast(data.error || "Error al revertir", "error");
+        return;
+      }
+
+      toast(
+        `Carga revertida: ${data.products_reverted} actualizados, ${data.products_deleted} eliminados`,
+        "success"
+      );
+      setExpandedId(null);
+      fetchHistory();
+    } catch {
+      toast("Error de conexión", "error");
+    } finally {
+      setRevertingId(null);
+    }
+  }
 
   if (loading) {
     return (
@@ -63,25 +107,12 @@ export default function HistorialPage() {
                       minute: "2-digit",
                     })}
                   </span>
-                  <Badge
-                    variant={
-                      entry.source === "whatsapp" ? "success" : "info"
-                    }
-                  >
-                    {entry.source === "whatsapp" ? "WhatsApp" : "Panel"}
-                  </Badge>
-                  <Badge
-                    variant={
-                      entry.action === "replace" ? "warning" : "success"
-                    }
-                  >
-                    {entry.action === "replace" ? "Reemplazar" : "Agregar"}
-                  </Badge>
+                  <Badge variant="info">Panel</Badge>
+                  <Badge variant="success">Carga</Badge>
                 </div>
                 <div className="flex items-center gap-4 text-sm text-text-secondary">
-                  <span>+{entry.products_created}</span>
-                  <span>~{entry.products_updated}</span>
-                  <span>-{entry.products_deactivated}</span>
+                  <span>+{entry.products_created} nuevos</span>
+                  <span>~{entry.products_updated} actualizados</span>
                   <svg
                     className={`w-4 h-4 transition-transform ${
                       expandedId === entry.id ? "rotate-180" : ""
@@ -101,7 +132,7 @@ export default function HistorialPage() {
               </button>
 
               {expandedId === entry.id && (
-                <div className="px-5 pb-4 border-t border-brand-ice">
+                <div className="px-5 pb-5 border-t border-brand-ice">
                   <div className="mt-4">
                     <p className="text-xs font-medium text-text-muted mb-2 uppercase tracking-wide">
                       Mensaje original
@@ -112,7 +143,7 @@ export default function HistorialPage() {
                   </div>
                   <div className="mt-4">
                     <p className="text-xs font-medium text-text-muted mb-2 uppercase tracking-wide">
-                      Productos parseados ({entry.parsed_products.length})
+                      Productos cargados ({entry.parsed_products.length})
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {entry.parsed_products.map((p, i) => (
@@ -130,6 +161,35 @@ export default function HistorialPage() {
                         </div>
                       ))}
                     </div>
+                  </div>
+
+                  {/* Revert button */}
+                  <div className="mt-5 pt-4 border-t border-brand-ice">
+                    <Button
+                      onClick={() => handleRevert(entry)}
+                      isLoading={revertingId === entry.id}
+                      variant="danger"
+                      size="sm"
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
+                        />
+                      </svg>
+                      Revertir esta carga
+                    </Button>
+                    <p className="text-xs text-text-muted mt-2">
+                      Resta el stock agregado y elimina los productos que se
+                      crearon en esta carga si quedan en 0.
+                    </p>
                   </div>
                 </div>
               )}
