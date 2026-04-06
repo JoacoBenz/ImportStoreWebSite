@@ -48,12 +48,4 @@ export interface Category {
   sort_order: number;
 }
 
-export type StockAction = "replace" | "add";
-export type StockSource = "whatsapp" | "admin_panel";
-
-export interface ConversationState {
-  step: "idle" | "awaiting_exchange_rate" | "awaiting_stock_action";
-  parsed_products?: ParsedProduct[];
-  raw_message?: string;
-  updated_at: string;
-}
+export type StockSource = "admin_panel";
