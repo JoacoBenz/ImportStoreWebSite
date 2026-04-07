@@ -155,7 +155,7 @@ export default function ProductosPage() {
       id: "",
       name: "",
       description: null,
-      category: "otros",
+      category: "celulares",
       price_usd: 0,
       stock: 1,
       image_url: null,
@@ -190,11 +190,13 @@ export default function ProductosPage() {
             className="px-3 py-2 rounded-xl border border-brand-ice bg-surface-primary text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-brand-teal/30"
           >
             <option value="todos">Todas las categorías</option>
-            <option value="auriculares">Auriculares</option>
-            <option value="cargadores">Cargadores</option>
-            <option value="cables">Cables</option>
-            <option value="fundas">Fundas</option>
             <option value="accesorios">Accesorios</option>
+            <option value="auriculares">Auriculares</option>
+            <option value="cables">Cables</option>
+            <option value="cargadores">Cargadores</option>
+            <option value="celulares">Celulares</option>
+            <option value="gamer">Gamer</option>
+            <option value="notebooks">Notebooks</option>
             <option value="otros">Otros</option>
           </select>
           <label className="flex items-center gap-2 text-sm text-text-secondary cursor-pointer">
@@ -352,11 +354,13 @@ export default function ProductosPage() {
                 }
                 className="w-full px-3 py-2 rounded-xl border border-brand-ice bg-surface-primary text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-brand-teal/30"
               >
-                <option value="auriculares">Auriculares</option>
-                <option value="cargadores">Cargadores</option>
-                <option value="cables">Cables</option>
-                <option value="fundas">Fundas</option>
                 <option value="accesorios">Accesorios</option>
+                <option value="auriculares">Auriculares</option>
+                <option value="cables">Cables</option>
+                <option value="cargadores">Cargadores</option>
+                <option value="celulares">Celulares</option>
+                <option value="gamer">Gamer</option>
+                <option value="notebooks">Notebooks</option>
                 <option value="otros">Otros</option>
               </select>
             </div>
