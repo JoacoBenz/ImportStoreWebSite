@@ -63,7 +63,7 @@ export function StoreHeader({ storeName, onSearch }: StoreHeaderProps) {
                   onSearch(e.target.value);
                 }}
                 placeholder="Buscar productos..."
-                className="w-full pl-10 pr-4 py-2 rounded-xl border border-brand-ice bg-surface-secondary text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-brand-teal/30 focus:border-brand-teal transition-colors"
+                className="w-full pl-10 pr-4 py-2 rounded-xl border border-brand-ice bg-surface-secondary text-base sm:text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-brand-teal/30 focus:border-brand-teal transition-colors"
               />
             </div>
           </form>
@@ -101,7 +101,7 @@ export function StoreHeader({ storeName, onSearch }: StoreHeaderProps) {
               }}
               placeholder="Buscar productos..."
               autoFocus
-              className="w-full px-4 py-2 rounded-xl border border-brand-ice bg-surface-secondary text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-brand-teal/30"
+              className="w-full px-4 py-2 rounded-xl border border-brand-ice bg-surface-secondary text-base sm:text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-brand-teal/30"
             />
           </form>
         )}
